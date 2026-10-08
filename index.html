@@ -8,9 +8,10 @@
 .station-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px auto 0;width:min(920px,100%);text-align:left}.station{border:1px solid #373b44;background:#111318;border-radius:14px;padding:12px}.station h3{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#9da2aa;margin:0 0 7px}.station .task{font-size:14px;font-weight:800}.station .subtime{font-size:12px;color:#8b919a;margin-top:4px;font-variant-numeric:tabular-nums}.station.current{border-color:#c6cad0;background:#1b1e24}.station.current .task:before{content:"→ ";}.station.done{opacity:.5}.station.done .task:before{content:"✓ ";}
 .buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:28px}button{min-height:46px;border:1px solid #41464f;background:#191c21;color:white;border-radius:12px;padding:0 17px;font-weight:750;cursor:pointer}.primary{background:var(--silver);color:#08090b;border-color:var(--silver);min-width:120px}.status{font-size:12px;color:var(--muted);margin-top:13px}
 .side{padding:17px}.side h2{font-size:16px;margin:3px 4px 12px}.list{display:grid;gap:6px}.row{display:grid;grid-template-columns:28px 1fr auto;gap:9px;align-items:center;padding:10px 8px;border-radius:11px;color:var(--muted)}.row.now{background:#1d2026;color:white;border:1px solid #3c414a}.row.done{color:#696e77}.check{width:23px;height:23px;border:1px solid #51565f;border-radius:7px;display:grid;place-items:center;font-weight:900}.done .check{background:var(--silver);border-color:var(--silver);color:#08090b}.name{font-size:14px;font-weight:700}.dur{font-size:12px;font-variant-numeric:tabular-nums}.complete{display:none}.hero.finished .active{display:none}.hero.finished .complete{display:block}.bigcheck{font-size:80px}.complete h2{font-size:clamp(34px,6vw,70px);margin:8px}.complete p{color:var(--muted)}
-@media(max-width:800px){.layout{grid-template-columns:1fr}.hero{min-height:470px}.clock{font-size:clamp(75px,23vw,130px)}}@media(max-width:650px){.station-grid{grid-template-columns:1fr}.station{text-align:center}}@media(max-width:480px){body{padding:9px}.hero,.side{border-radius:18px}.hero{padding:24px 13px;min-height:430px}.head{padding:4px}.buttons button{flex:1 1 40%}.stage{font-size:28px}}
+.subheading{display:none;margin:18px auto 8px;width:min(920px,100%);text-align:left;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9da2aa;font-weight:850}.session-timelines{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px auto 0;width:min(920px,100%);text-align:left}.timeline{border:1px solid #2e3239;background:#0d0f13;border-radius:14px;padding:11px}.timeline h4{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#aeb3bb}.tstep{display:grid;grid-template-columns:20px 1fr auto;gap:7px;align-items:center;padding:6px 4px;border-radius:8px;color:#747a84;font-size:11px}.tstep .dot{width:17px;height:17px;border:1px solid #444a53;border-radius:5px;display:grid;place-items:center;font-size:10px;font-weight:900}.tstep.active{background:#1d2026;color:#fff}.tstep.active .dot{border-color:#d7dae0}.tstep.done{color:#555b64}.tstep.done .dot{background:#d7dae0;border-color:#d7dae0;color:#08090b}.tstep .tm{font-variant-numeric:tabular-nums;color:#8e949d}.timeline-note{grid-column:1/-1;text-align:center;color:#6f7580;font-size:11px;margin-top:1px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.hero{min-height:470px}.clock{font-size:clamp(75px,23vw,130px)}}@media(max-width:650px){.station-grid,.session-timelines{grid-template-columns:1fr}.timeline-note{grid-column:1}.station-grid{grid-template-columns:1fr}.station{text-align:center}}@media(max-width:480px){body{padding:9px}.hero,.side{border-radius:18px}.hero{padding:24px 13px;min-height:430px}.head{padding:4px}.buttons button{flex:1 1 40%}.stage{font-size:28px}}
 </style></head><body><main class="app"><header class="head"><div><div class="eyebrow">Metropolitan Engineering Competition</div><h1>MEC Workshop Timer</h1></div><div class="remain">Workshop remaining<b id="total">2:00:00</b></div></header>
-<div class="layout"><section class="hero" id="hero"><div class="active"><div class="pill" id="count">STAGE 1 OF 13</div><div class="stage" id="stage">Arrival / TMU Time</div><div class="clock" id="clock">10:00</div><div class="next">Next: <b id="next">Arduino + Soldering Intro — 10:00</b></div><div class="track"><div class="fill" id="fill"></div></div><div class="station-grid" id="stations" style="display:none"></div><div class="buttons"><button id="prev">← Previous</button><button class="primary" id="start">Start</button><button id="skip">Skip →</button><button id="reset">Reset</button></div><div class="status" id="status">Ready • press Start to enable sound</div></div>
+<div class="layout"><section class="hero" id="hero"><div class="active"><div class="pill" id="count">STAGE 1 OF 13</div><div class="stage" id="stage">Arrival / TMU Time</div><div class="clock" id="clock">10:00</div><div class="next">Next: <b id="next">Arduino + Soldering Intro — 10:00</b></div><div class="track"><div class="fill" id="fill"></div></div><div class="station-grid" id="stations" style="display:none"></div><div class="subheading" id="subheading">Live Station Schedule • Resets Every Rotation</div><div class="session-timelines" id="timelines"></div><div class="buttons"><button id="prev">← Previous</button><button class="primary" id="start">Start</button><button id="skip">Skip →</button><button id="reset">Reset</button></div><div class="status" id="status">Ready • press Start to enable sound</div></div>
 <div class="complete"><div class="bigcheck">✓</div><h2>Workshop Complete</h2><p>Every scheduled stage is finished.</p><div class="buttons"><button class="primary" id="restart">Restart Workshop</button></div></div></section>
 <aside class="side"><h2>Workshop Schedule</h2><div class="list" id="list"></div></aside></div></main>
 <script>
@@ -39,7 +40,7 @@ const AB=[
 const SOLD=[
  ["Soldering Demo / Explanation",60],
  ["Collect Components",60],
- ["Decide & Set Up",180],
+ ["Silent Setup",180],
  ["Soldering",1320]
 ];
 let i=0,left=S[0][1],run=false,tick=null,end=0,finished=false,w5=false,w1=false,lastSubKey="";
@@ -64,13 +65,40 @@ function drawStations(){
  lastSubKey=key;
  box.innerHTML=stationCard("Session 1 • Light, Inputs & Sensors",abLabel("1",a),a.rem)+stationCard("Session 2 • Motion & Control",abLabel("2",a),a.rem)+stationCard("Session 3 • Soldering",SOLD[s.idx][0],s.rem);
 }
+
+function timelineSteps(title,steps,elapsed,prefix){
+ let acc=0;
+ let rows=steps.map((x,n)=>{
+  let start=acc,end=acc+x[1]; acc=end;
+  let cls=elapsed>=end?"done":elapsed>=start?"active":"";
+  let mark=cls==="done"?"✓":cls==="active"?"→":"";
+  let label=x[0];
+  if(prefix==="1"){if(n===0)label="1A • Activity A";if(n===2)label="1B • Activity B";if(n===4)label="1C • Challenge"}
+  if(prefix==="2"){if(n===0)label="2A • Activity A";if(n===2)label="2B • Activity B";if(n===4)label="2C • Challenge"}
+  return `<div class="tstep ${cls}"><div class="dot">${mark}</div><div>${label}</div><div class="tm">${fmt(x[1])}</div></div>`;
+ }).join("");
+ return `<div class="timeline"><h4>${title}</h4>${rows}</div>`;
+}
+function drawTimelines(){
+ const box=$("timelines"),heading=$("subheading");
+ let elapsed=0,mode=S[i][2];
+ if(mode==="rotation") elapsed=S[i][1]-left;
+ else if(mode==="prep") elapsed=-1;
+ else {box.innerHTML="";box.style.display="none";heading.style.display="none";return}
+ box.style.display="grid";heading.style.display="block";
+ box.innerHTML=
+  timelineSteps("Session 1 • Light, Inputs & Sensors",AB,elapsed,"1")+
+  timelineSteps("Session 2 • Motion & Control",AB,elapsed,"2")+
+  timelineSteps("Session 3 • Soldering",SOLD,elapsed,"3")+
+  `<div class="timeline-note">All three cards run from the SAME 27:00 rotation clock above and reset to the beginning for every new rotation. → CURRENT • ✓ COMPLETED • unmarked = NEXT</div>`;
+}
 function draw(){
  hero.classList.toggle("finished",finished);
- if(finished){$("total").textContent="0:00";$("stations").style.display="none"}
+ if(finished){$("total").textContent="0:00";$("stations").style.display="none";$("timelines").style.display="none";$("subheading").style.display="none"}
  else{
   $("count").textContent=`STAGE ${i+1} OF ${S.length}`;$("stage").textContent=S[i][0];$("clock").textContent=fmt(left);$("total").textContent=fmt(total());
   $("next").textContent=i<S.length-1?`${S[i+1][0]} — ${fmt(S[i+1][1])}`:"Workshop Complete";
-  $("fill").style.width=Math.max(0,Math.min(100,left/S[i][1]*100))+"%";$("start").textContent=run?"Pause":left<S[i][1]?"Resume":"Start";$("status").textContent=run?"Running • stages advance automatically":"Paused / ready";drawStations()
+  $("fill").style.width=Math.max(0,Math.min(100,left/S[i][1]*100))+"%";$("start").textContent=run?"Pause":left<S[i][1]?"Resume":"Start";$("status").textContent=run?"Running • stages advance automatically":"Paused / ready";drawStations();drawTimelines()
  }
  $("list").innerHTML=S.map((s,n)=>`<div class="row ${n<i||finished?"done":n===i?"now":""}"><div class="check">${n<i||finished?"✓":""}</div><div class="name">${s[0]}</div><div class="dur">${fmt(s[1])}</div></div>`).join("")
 }
